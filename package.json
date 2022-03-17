@@ -7,6 +7,6 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.4.25",
-    "swr": "^1.1.2"
+    "swr": "^1.2.1"
   }
 }
