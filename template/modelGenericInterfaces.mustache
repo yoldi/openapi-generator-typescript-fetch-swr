@@ -23,10 +23,10 @@ export interface {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
 * @export
 * @enum {string}
 */
-export enum {{classname}}{{enumName}} {
+export type {{classname}}{{enumName}} =
 {{#allowableValues}}
     {{#enumVars}}
-    {{{name}}} = {{{value}}}{{^-last}},{{/-last}}
+    | {{{value}}}
     {{/enumVars}}
 {{/allowableValues}}
-}{{/isEnum}}{{/vars}}{{/hasEnums}}
+{{/isEnum}}{{/vars}}{{/hasEnums}}
