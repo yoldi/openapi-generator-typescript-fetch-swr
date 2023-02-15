@@ -394,7 +394,7 @@ export class {{classname}} extends runtime.BaseAPI {
     {{#lambda.camelcase}}use_{{nickname}}{{/lambda.camelcase}} = ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}config?: SWRConfiguration<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>): SWRResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}> => {
         return useSWR<{{{returnType}}}{{^returnType}}void{{/returnType}}>(
             () => this.{{nickname}}RequestOpts({{#allParams.0}}{ {{#allParams}}{{paramName}}: {{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }{{/allParams.0}}),
-            (context) => this.{{nickname}}Fetch(context).then(it => it.value()),
+            (context) => this.swrFetch(this.{{nickname}}Fetch(context)),
             config
         );
     }
@@ -404,7 +404,7 @@ export class {{classname}} extends runtime.BaseAPI {
         {
         return useSWR<{{{returnType}}}{{^returnType}}void{{/returnType}}>(
             () => this.{{nickname}}RequestOpts({{#allParams.0}}requestParameters{{/allParams.0}}),
-            (context) => this.{{nickname}}Fetch(context).then(it => it.value()),
+            (context) => this.swrFetch(this.{{nickname}}Fetch(context)),
             config
         );
     }

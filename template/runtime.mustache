@@ -42,6 +42,18 @@ export class BaseAPI {
         throw response;
     }
 
+    protected async swrFetch<T extends any>(data: Promise<ApiResponse<T>>): Promise<T> {
+      try {
+        return (await data).value();
+      } catch (resp) {
+        if (resp instanceof Response) {
+          throw await resp.json();
+        } else {
+          throw resp;
+        }
+      }
+    }
+
     private createFetchParams(context: RequestOpts, initOverrides?: RequestInit) {
         let url = this.configuration.basePath + context.path;
         if (context.query !== undefined && Object.keys(context.query).length !== 0) {
