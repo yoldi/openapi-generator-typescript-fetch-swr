@@ -92,7 +92,7 @@ export class {{classname}} extends runtime.BaseAPI {
      * {{&summary}}
      {{/summary}}
      */
-    {{nickname}}RequestOpts = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{/allParams.0}}): runtime.RequestOpts => {
+    protected {{nickname}}RequestOpts = ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request{{/allParams.0}}): runtime.RequestOpts => {
         {{#allParams}}
         {{#required}}
         if (requestParameters.{{paramName}} === null || requestParameters.{{paramName}} === undefined) {
@@ -296,7 +296,7 @@ export class {{classname}} extends runtime.BaseAPI {
      * {{&summary}}
      {{/summary}}
      */
-    {{nickname}}Fetch = async (context: runtime.RequestOpts, initOverrides?: RequestInit): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>> => {
+    protected {{nickname}}Fetch = async (context: runtime.RequestOpts, initOverrides?: RequestInit): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>> => {
         const response = await this.request(context, initOverrides);
 
         {{#returnType}}
@@ -343,7 +343,7 @@ export class {{classname}} extends runtime.BaseAPI {
      * {{&summary}}
      {{/summary}}
      */
-    {{nickname}}Raw = async ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>> => {
+    protected {{nickname}}Raw = async ({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>> => {
         const context = this.{{nickname}}RequestOpts({{#allParams.0}}requestParameters{{/allParams.0}});
         return this.{{nickname}}Fetch(context, initOverrides);
     }
