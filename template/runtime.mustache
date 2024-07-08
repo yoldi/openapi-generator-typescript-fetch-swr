@@ -39,15 +39,15 @@ export class BaseAPI {
         if (response.status >= 200 && response.status < 300) {
             return response;
         }
-        throw response;
+        throw new ApiError(url, init, response);
     }
 
     protected async swrFetch<T extends any>(data: Promise<ApiResponse<T>>): Promise<T> {
       try {
         return (await data).value();
       } catch (resp) {
-        if (resp instanceof Response) {
-          throw await resp.json();
+        if (resp instanceof ApiError) {
+          throw await resp.response.json();
         } else {
           throw resp;
         }
@@ -117,6 +117,13 @@ export class RequiredError extends Error {
     name: "RequiredError" = "RequiredError";
     constructor(public field: string, msg?: string) {
         super(msg);
+    }
+}
+
+export class ApiError extends Error {
+    name: "ApiError" = "ApiError";
+    constructor(readonly url: string, readonly request: RequestInit, readonly response: Response) {
+        super(`${response.status} ${response.statusText}`);
     }
 }
 
